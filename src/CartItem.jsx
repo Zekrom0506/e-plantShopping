@@ -7,30 +7,60 @@ const CartItem = ({ onContinueShopping }) => {
   const cart = useSelector(state => state.cart.items);
   const dispatch = useDispatch();
 
-  // Calculate total amount for all products in the cart
-  const calculateTotalAmount = () => {
- 
-  };
+    const calculateTotalAmount = () => {
+        let total = 0; // Step 1: Initialize total
+      
+        cart.forEach((item) => {
+          const price = parseFloat(item.cost.substring(1)); // Remove "$" and convert to number
+          const itemTotal = price * item.quantity; // Multiply price by quantity
+          total += itemTotal; // Add to total
+        });
+      
+        return total; // Return the final total amount
+      };
 
-  const handleContinueShopping = (e) => {
-   
-  };
+
+      const handleContinueShopping = (e) => {
+        e.preventDefault(); // ✅ Optional: Prevent default link/button behavior
+        onContinueShopping(e); // ✅ Call the function passed from parent
+      };
+      
+      const handleCheckoutShopping = (e) => {
+        alert('Functionality to be added for future reference');
+      };
 
 
+      const handleIncrement = (item) => {
+        dispatch(updateQuantity({ name: item.name, quantity: item.quantity + 1 }));
+      };
+      
 
-  const handleIncrement = (item) => {
-  };
-
-  const handleDecrement = (item) => {
-   
-  };
+      const handleDecrement = (item) => {
+        if (item.quantity > 1) {
+          // Decrease quantity by 1
+          dispatch(updateQuantity({ name: item.name, quantity: item.quantity - 1 }));
+        } else {
+          // Quantity would be 0, remove the item completely
+          dispatch(removeItem(item.name));
+        }
+      };
+      
 
   const handleRemove = (item) => {
+    dispatch(removeItem(item.name));
   };
 
   // Calculate total cost based on quantity for an item
   const calculateTotalCost = (item) => {
+    // Convert "$10.00" → 10.00 (as a number)
+    const unitPrice = parseFloat(item.cost.substring(1));
+  
+    // Multiply with quantity
+    const subtotal = unitPrice * item.quantity;
+  
+    return subtotal;
   };
+  
 
   return (
     <div className="cart-container">
@@ -57,7 +87,7 @@ const CartItem = ({ onContinueShopping }) => {
       <div className="continue_shopping_btn">
         <button className="get-started-button" onClick={(e) => handleContinueShopping(e)}>Continue Shopping</button>
         <br />
-        <button className="get-started-button1">Checkout</button>
+        <button className="get-started-button1" onClick = {(e) => handleCheckoutShopping(e)}>Checkout</button>
       </div>
     </div>
   );

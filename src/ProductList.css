@@ -160,18 +160,26 @@ body {
     width: 650px;
     font-size: 19px;
 }
-.cart{
+.cart {
     color: white;
     display: flex;
-}
-.cart_quantity_count{
-    margin-top: 16px;
-    /* background-color: red; */
-    margin-left: 27px;
+  }
+  
+  .cart_quantity_count {
     position: absolute;
-    font-size: 29px;
-
-}
+    top: 8px;      /* tweak to vertically center the number */
+    right: 9px;   /* tweak to horizontally center over the icon */
+    background: re;
+    color: white;
+    border-radius: 50%;
+    width: 24px;
+    height: 24px;
+    font-size: 14px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
 .plantname_heading{
    display: flex;
    align-items: center;
